@@ -2,8 +2,7 @@
 var AddItem = document.querySelector("#AddItem");
 var form = document.querySelector(form);
 var todoList = document.querySelector("#todo");
-var message = document.getElementById("#message");
-
+var message = document.getElementById('message');
 var close = document.querySelector(".closingBtn");
 
 
@@ -11,13 +10,11 @@ AddItem.addEventListener("click", function(event){
     event.preventDefault();
     let newItemValue = document.getElementById('insert').value;
     if (newItemValue == null || newItemValue.length <3 ){
-        console.log("null-- or small");
         alert("Please provide an item at least 3 characters long.")
         return;
     }
    
-    console.log(message.textContent);
-   // message.textContent("v");
+    message.textContent="";
 
     if(todoList.children.length>7){
         alert("The limit of list items is 8. Please remove some items to create a new one.")
@@ -43,21 +40,20 @@ AddItem.addEventListener("click", function(event){
 
 });
 
-function closing(){
-    console.log("closing");
+function closing(event){
+    event.stopPropagation();
     if (confirm("Are you SURE you want to DELETE this item?")) {
-        console.log(this.parentNode);
         this.parentNode.remove();
+        if(todoList.children.length==1){
+            message.textContent="Your list items will be displayed here:";
+        }
     } else {
         return;
     }
 }
 
-
-
 function completeItem(){
     console.log("complete item");
-    console.log(this.id);
     if(this.id == "active"){
         this.setAttribute("id", "done");
         this.children[0].setAttribute("style", "display:none;");
